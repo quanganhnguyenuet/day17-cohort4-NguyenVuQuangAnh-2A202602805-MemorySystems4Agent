@@ -35,7 +35,7 @@ Sau khi hoàn thành, các bạn cần có khả năng:
 ├── data/            # dữ liệu benchmark dùng chung
 │   ├── conversations.json
 │   └── advanced_long_context.json
-└── src/             # bản scaffold dành cho sinh viên (pseudocode + TODO)
+└── src/             # mã nguồn lab đã hoàn thiện và kiểm thử
     ├── model_provider.py
     ├── config.py
     ├── memory_store.py

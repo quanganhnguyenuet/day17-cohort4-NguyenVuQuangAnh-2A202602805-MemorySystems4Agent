@@ -1,19 +1,17 @@
-# Student Scaffold
+# Day 17 implementation
 
-This `src/` folder is the student version of the lab.
+`src/` contains the completed offline memory lab. Run from the repository root:
 
-- It keeps the same high-level structure
-- The Python files are intentionally incomplete and contain pseudocode / TODOs
-- The benchmark structure should include: standard benchmark + long-context stress benchmark
-- The runtime should support these providers: `openai`, `custom`, `gemini`, `anthropic`, `ollama`, `openrouter`
+```bash
+python src/benchmark.py
+pytest src/test_agents.py -v
+```
 
-Suggested flow:
+The benchmark runs deterministically without API keys. It prints the standard and long-context stress tables. Each agent gets an isolated temporary state directory, so results are repeatable and do not depend on saved profiles from previous runs.
 
-1. Start with `config.py`
-2. Implement `memory_store.py`
-3. Finish `agent_baseline.py`
-4. Finish `agent_advanced.py`
-5. Implement `benchmark.py`
-6. Make `test_agents.py` pass
+- `BaselineAgent` keeps a full message history within each thread and forgets it in a new thread.
+- `AdvancedAgent` keeps recent messages, compacts older messages, and persists explicit user facts in `User.md`.
+- `memory_store.py` handles profile editing, fact extraction, token estimation, and compact memory.
+- `model_provider.py` supplies optional provider factories for OpenAI, custom OpenAI-compatible endpoints, Gemini, Anthropic, Ollama, and OpenRouter. The benchmark and tests use the offline path.
 
-Datasets are available at the repo root in `data/`.
+See [the benchmark analysis](../ANALYSIS.md) for measured results and limitations.
